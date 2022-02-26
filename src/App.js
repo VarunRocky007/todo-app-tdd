@@ -17,12 +17,21 @@ function App(props) {
     });
     setTasks(updatedTasks);
 }
+function editTask(id,newName){
+  const editedTaskList = tasks.map(task=>{
+    if(id==task.id){
+      return {...task,name:newName}
+    }
+    return task;
+  });
+  setTasks(editedTaskList);
+}
 function deleteTask(id) {
   const remainingTasks = tasks.filter(task=>id!=task.id);
   setTasks(remainingTasks);
 }
 
-  const taskList = tasks.map(task => <Todo name={task.name} id={task.id} isCompleted={task.completed} toggleTaskCompleted={toggleTaskCompleted} deleteTask={deleteTask}/>);
+  const taskList = tasks.map(task => <Todo name={task.name} id={task.id} isCompleted={task.completed} toggleTaskCompleted={toggleTaskCompleted} deleteTask={deleteTask} editTask={editTask}/>);
   const taskNoun= taskList==1?'task':'tasks';
 const headingText = `${taskList.length} ${taskNoun} remaining`;
   function addTask(name){
