@@ -1,7 +1,9 @@
 /*jshint ignore*/
 import Todo from './components/Todo';
 function App(props) {
+  const taskList = props.tasks?.map(task => <Todo name={task.name} id={task.id} isCompleted={task.completed}/>);
   return (
+
     <div className="todoapp stack-large">
       <h1>TodoMatic</h1>
       <form>
@@ -46,11 +48,11 @@ function App(props) {
         className="todo-list stack-large stack-exception"
         aria-labelledby="list-heading"
       >
-        <Todo name="Eat" isCompleted={true} id="todo-1"/>
-        <Todo name="Sleep" isCompleted={true} id="todo-2"/>
-        <Todo name="Drink" isCompleted={true} if="todo-3"/>
+        {taskList}
       </ul>
     </div>
   );
 }
+
+
 export default App;
