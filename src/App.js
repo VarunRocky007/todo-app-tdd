@@ -8,7 +8,21 @@ import {nanoid} from 'nanoid';
 function App(props) {
 
   const [tasks,setTasks] = useState(props.tasks);
-  const taskList = tasks.map(task => <Todo name={task.name} id={task.id} isCompleted={task.completed}/>);
+  function toggleTaskCompleted(id) {
+    const updatedTasks = tasks.map(task => {
+      if (id === task.id) {
+        return {...task, completed: !task.completed}
+      }
+      return task;
+    });
+    setTasks(updatedTasks);
+}
+function deleteTask(id) {
+  const remainingTasks = tasks.filter(task=>id!=task.id);
+  setTasks(remainingTasks);
+}
+
+  const taskList = tasks.map(task => <Todo name={task.name} id={task.id} isCompleted={task.completed} toggleTaskCompleted={toggleTaskCompleted} deleteTask={deleteTask}/>);
   const taskNoun= taskList==1?'task':'tasks';
 const headingText = `${taskList.length} ${taskNoun} remaining`;
   function addTask(name){
