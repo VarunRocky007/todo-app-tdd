@@ -4,10 +4,26 @@ import Todo from './components/Todo';
 import Form from './components/Form';
 import FilterButton from './components/FilterButton';
 import {nanoid} from 'nanoid';
+const FILTER_MAP = {
+  All: () => true,
+  Active: task => !task.completed,
+  Completed: task => task.completed
+};
+const FILTER_NAMES = Object.keys(FILTER_MAP);
+
 
 function App(props) {
-
+  const [filter, setFilter] = useState('All');
+  const filterList = FILTER_NAMES.map(name => (
+    <FilterButton
+      key={name}
+      name={name}
+      isPressed={name === filter}
+      setFilter={setFilter}
+    />
+  ));
   const [tasks,setTasks] = useState(props.tasks);
+
   function toggleTaskCompleted(id) {
     const updatedTasks = tasks.map(task => {
       if (id === task.id) {
@@ -31,7 +47,20 @@ function deleteTask(id) {
   setTasks(remainingTasks);
 }
 
-  const taskList = tasks.map(task => <Todo name={task.name} id={task.id} isCompleted={task.completed} toggleTaskCompleted={toggleTaskCompleted} deleteTask={deleteTask} editTask={editTask}/>);
+const taskList = tasks
+.filter(FILTER_MAP[filter])
+.map(task => (
+<Todo
+  id={task.id}
+  name={task.name}
+  completed={task.completed}
+  key={task.id}
+  toggleTaskCompleted={toggleTaskCompleted}
+  deleteTask={deleteTask}
+  editTask={editTask}
+/>
+));
+
   const taskNoun= taskList==1?'task':'tasks';
 const headingText = `${taskList.length} ${taskNoun} remaining`;
   function addTask(name){
@@ -45,9 +74,7 @@ const headingText = `${taskList.length} ${taskNoun} remaining`;
       <Form addTask={addTask}/>
       <div className="filters btn-group stack-exception">
 
-        <FilterButton />
-        <FilterButton />
-        <FilterButton />
+        {filterList}
       </div>
       <h2 id="list-heading">
         {headingText}
