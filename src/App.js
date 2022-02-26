@@ -1,3 +1,4 @@
+/*jshint ignore*/
 import Todo from './components/Todo';
 function App(props) {
   return (
@@ -45,9 +46,9 @@ function App(props) {
         className="todo-list stack-large stack-exception"
         aria-labelledby="list-heading"
       >
-        <Todo />
-        <Todo />
-        <Todo />
+        <Todo name="Eat" isCompleted={true} id="todo-1"/>
+        <Todo name="Sleep" isCompleted={true} id="todo-2"/>
+        <Todo name="Drink" isCompleted={true} if="todo-3"/>
       </ul>
     </div>
   );
