@@ -5,6 +5,7 @@ export default function FilterButton(props) {
       type="button"
       className="btn toggle-btn"
       aria-pressed={props.isPressed}
+      data-testid={props.name}
       onClick={() => props.setFilter(props.name)}
     >
       <span className="visually-hidden">Show </span>

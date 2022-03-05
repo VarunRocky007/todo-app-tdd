@@ -1,4 +1,4 @@
-/*jshint ignore*/
+
 import React,{useState} from 'react';
 import Todo from './components/Todo';
 import Form from './components/Form';

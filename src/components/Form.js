@@ -19,14 +19,14 @@ export default function Form(props){
       </h2>
       <input
         type="text"
-        id="new-todo-input"
+        data-testid="new-todo-input"
         className="input input__lg"
         name="text"
         autoComplete="off"
         value={name}
         onChange={handleChange}
       />
-      <button type="submit" className="btn btn__primary btn__lg" >
+      <button data-testid="sendButton"type="submit" className="btn btn__primary btn__lg" >
         Add
       </button>
     </form>
